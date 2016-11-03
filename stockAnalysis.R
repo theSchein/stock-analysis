@@ -3,8 +3,8 @@
 
 require(quantmod)
 require(xts)
-# If you do not have these packages installed type: 'install.packages(quantmod)'
-# & 'install.packages(xts)' into the command line
+# If you do not have these packages installed type: 'install.packages("quantmod")'
+# & 'install.packages("xts")' into the command line
 
 ## Getting Ticker data
 
