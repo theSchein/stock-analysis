@@ -15,7 +15,7 @@ STOCK<- getSymbols(stock, src= "google",from=c(date),auto.assign = FALSE);
 index<- getSymbols("spy", src= "google",from=c(date),auto.assign = FALSE);
 
 ## Price Chart
-chartSeries(STOCK, subset="2016")
+chartSeries(STOCK, from= date,name=c(stock))
 addBBands() # bollingger bands
 addMACD() # moving average convergence divergence
 # addCCI()
@@ -25,7 +25,10 @@ close <- STOCK[c("/",date),4]
 basicMeasures <-summary(close)
 mainTable<- write.csv(basicMeasures) 
 # NEEDS WORK. I am trying to write all descriptive statistics to a table
-variance <- var(close) # should be written to a table
+descriptions<- c("Days of Trading","Min Price","Max Price","Mean Price","Variance")
+metrics<- c(length(close),min(close),max(close),mean(close),var(close))
+mainTable <- data.frame(descriptions,metrics)
+mainTable
 
 ## Box Plot
 boxplot(as.zooreg(close), col = "red", main = c(stock,"Boxplot"))
@@ -47,6 +50,10 @@ par(new=TRUE)
 plot(as.zoo(volIndex),col=2, bty='n', xaxt="n", yaxt="n", xlab="", ylab="")
 axis(4, las=1)
 legend("topleft",legend=c("Stock Volatility","S&P Volatility"),col=1:2,lty=1,cex=0.85) 
+
+# Volatility Displacement
+plot(as.zoo(volStock-volIndex),col=2, bty='n', xaxt="n", yaxt="n"
+     , xlab="Time", ylab="Volatility", main="Volatility adjusted for market")
 
 ## Distributions
 # to determine the distribution used in further modeling
